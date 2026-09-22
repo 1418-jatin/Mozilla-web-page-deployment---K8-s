@@ -34,11 +34,11 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                kubectl delete deployment beginner-html-deployment --ignore-not-found=true
-                kubectl delete service beginner-html-service --ignore-not-found=true
-                kubectl apply -f deployment.yml
-                kubectl apply -f service.yml
-                kubectl rollout status deployment/beginner-html-deployment
+                kubectl --kubeconfig=/home/ubuntu/.kube/config delete deployment beginner-html-deployment --ignore-not-found=true
+                kubectl --kubeconfig=/home/ubuntu/.kube/config delete service beginner-html-service --ignore-not-found=true
+                kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f deployment.yml
+                kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f service.yml
+                kubectl --kubeconfig=/home/ubuntu/.kube/config rollout status deployment/beginner-html-deployment
                 '''
             }
         }
