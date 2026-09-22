@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beginner-html-deployment
+  labels:
+    app: beginner-html
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: beginner-html
+  template:
+    metadata:
+      labels:
+        app: beginner-html
+    spec:
+      containers:
+      - name: beginner-html-container
+        image: 19901418/my-jenkins-python-app-ci-cd:v1   # Docker Hub image pushed by Jenkins
+        ports:
+        - containerPort: 80
