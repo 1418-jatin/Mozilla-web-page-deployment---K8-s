@@ -33,20 +33,13 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                // Run kubectl on k8s-node via SSH
-                withCredentials([sshUserPrivateKey(credentialsId: 'jenkin-cred', keyFileVariable: 'PEM_KEY')]) {
-                    sh '''
-                    ssh -i "$PEM_KEY" -o StrictHostKeyChecking=no ubuntu@"$K8S_NODE_IP" "mkdir -p ~/k8s"
-                    scp -i "$PEM_KEY" -o StrictHostKeyChecking=no deployment.yml service.yml ubuntu@"$K8S_NODE_IP":~/k8s/
-                    ssh -i "$PEM_KEY" -o StrictHostKeyChecking=no ubuntu@"$K8S_NODE_IP" '
-                        kubectl delete deployment beginner-html-deployment --ignore-not-found=true &&
-                        kubectl delete service beginner-html-service --ignore-not-found=true &&
-                        kubectl apply -f ~/k8s/deployment.yml &&
-                        kubectl apply -f ~/k8s/service.yml &&
-                        kubectl rollout status deployment/beginner-html-deployment
-                    '
-                    '''
-                }
+                sh '''
+                kubectl delete deployment beginner-html-deployment --ignore-not-found=true
+                kubectl delete service beginner-html-service --ignore-not-found=true
+                kubectl apply -f deployment.yml
+                kubectl apply -f service.yml
+                kubectl rollout status deployment/beginner-html-deployment
+                '''
             }
         }
     }
