@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/1418-jatin/beginner-html-site-styled.git', branch: 'main'
+                git url: 'https://github.com/1418-jatin/Mozilla-web-page-deployment---K8-s.git', branch: 'main'
             }
         }
 
