@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: beginner-html-container
-        image: 19901418/my-jenkins-python-app-ci-cd:v56   # Docker Hub image pushed by Jenkins
+        image: 19901418/my-jenkins-python-app-ci-cd:${BUILD_NUMBER}   # Docker Hub image pushed by Jenkins
         ports:
         - containerPort: 80
